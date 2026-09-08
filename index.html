@@ -1,109 +1,273 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BHU SGPA Calculator</title>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <main class="app-shell">
-      <section class="hero" aria-labelledby="page-title">
-        <div class="hero__content">
-          <div class="brand-line">
-            <span class="bhu-mark" aria-hidden="true">BHU</span>
-            <p class="eyebrow">Banaras Hindu University</p>
-          </div>
-          <h1 id="page-title">SGPA Calculator</h1>
-          <p class="hero__copy">A cleaner semester calculator for BHU students. Add subjects, tune credits, pick grades, and see your SGPA instantly.</p>
-        </div>
-        <div class="score-card" aria-live="polite">
-          <span>Current SGPA</span>
-          <div class="score-card__badge">
-            <strong id="heroSgpa">0.00</strong>
-          </div>
-          <small id="heroCredits">0 credits counted</small>
-        </div>
-      </section>
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
 
-      <section class="workspace" aria-label="SGPA calculator workspace">
-        <div class="calculator-panel">
-          <div class="panel-header">
-            <div>
-              <h2>Subject Details</h2>
-            </div>
-            <div class="header-actions">
-              <button class="ghost-button" id="clearButton" type="button">Clear Subjects</button>
-              <button class="ghost-button" id="resetButton" type="button">Reset</button>
-            </div>
-          </div>
+  <meta
+    name="description"
+    content="A simple BHU SGPA Calculator for calculating semester grade point average."
+  >
 
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">SNo</th>
-                  <th scope="col">Subject</th>
-                  <th scope="col">Credit</th>
-                  <th scope="col">Grade</th>
-                  <th scope="col"><span class="sr-only">Remove</span></th>
-                </tr>
-              </thead>
-              <tbody id="subjectRows"></tbody>
-            </table>
-            <div class="empty-state" id="emptyState" hidden>
-              <strong>Add a subject to calculate SGPA</strong>
-              <span>Use the Add Subject button to start a new semester row.</span>
-            </div>
-          </div>
+  <title>BHU SGPA Calculator</title>
 
-          <div class="actions">
-            <button class="secondary-button" id="addSubjectButton" type="button">+ Add Subject</button>
-            <div class="result-box result-box--main">
-              <span>SGPA</span>
-              <strong id="sgpaValue">0.00</strong>
-            </div>
-          </div>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <main class="app-shell">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="page-title">
+
+      <div class="hero__content">
+
+        <div class="brand-line">
+          <span class="bhu-mark" aria-hidden="true">BHU</span>
+          <p class="eyebrow">Banaras Hindu University</p>
         </div>
 
-        <aside class="grading-panel" aria-labelledby="grading-title">
-          <div class="panel-header panel-header--compact">
-            <div>
-              <p class="eyebrow">Editable</p>
-              <h2 id="grading-title">BHU Grade Points</h2>
-            </div>
+        <h1 id="page-title">SGPA Calculator</h1>
+
+        <p class="hero__copy">
+          A cleaner semester calculator for BHU students.
+          Add subjects, tune credits, pick grades, and see your SGPA instantly.
+        </p>
+
+      </div>
+
+      <div class="score-card" aria-live="polite">
+
+        <span>Current SGPA</span>
+
+        <div class="score-card__badge">
+          <strong id="heroSgpa">0.00</strong>
+        </div>
+
+        <small id="heroCredits">0 credits counted</small>
+
+      </div>
+
+    </section>
+
+
+    <!-- WORKSPACE -->
+    <section
+      class="workspace"
+      aria-label="SGPA calculator workspace"
+    >
+
+      <!-- CALCULATOR -->
+      <div class="calculator-panel">
+
+        <div class="panel-header">
+
+          <div>
+            <h2>Subject Details</h2>
           </div>
-          <div class="grade-grid" id="gradeGrid"></div>
-          <p class="note">Change a grade point if your department follows a different mapping. The calculator updates every row that uses that grade.</p>
-        </aside>
-      </section>
 
-      <footer class="site-footer">
-        <p>Made for BHU students by a BHU Computer Science student.</p>
-        <span>Calculate your semester SGPA quickly by editing subjects, credits, and grades.</span>
-      </footer>
-    </main>
+          <div class="header-actions">
 
-    <template id="subjectRowTemplate">
-      <tr>
-        <td class="row-index" data-label="SNo"></td>
-        <td data-label="Subject">
-          <input class="subject-input" type="text" aria-label="Subject name">
-        </td>
-        <td data-label="Credit">
-          <input class="credit-input" type="text" inputmode="decimal" pattern="[0-9]*[.]?[0-9]*" aria-label="Credits">
-        </td>
-        <td data-label="Grade">
-          <div class="grade-select"></div>
-        </td>
-        <td data-label="Remove">
-          <button class="remove-button" type="button" aria-label="Remove subject">
-            <span aria-hidden="true"></span>
+            <button
+              class="ghost-button"
+              id="clearButton"
+              type="button"
+            >
+              Clear Subjects
+            </button>
+
+            <button
+              class="ghost-button"
+              id="resetButton"
+              type="button"
+            >
+              Reset
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- SUBJECT AREA -->
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+              <tr>
+                <th scope="col">SNo</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Credit</th>
+                <th scope="col">Grade</th>
+                <th scope="col">
+                  <span class="sr-only">Remove</span>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody id="subjectRows"></tbody>
+
+          </table>
+
+
+          <div
+            class="empty-state"
+            id="emptyState"
+            hidden
+          >
+            <strong>Add a subject to calculate SGPA</strong>
+
+            <span>
+              Use the Add Subject button to start a new semester row.
+            </span>
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+        <div class="actions">
+
+          <button
+            class="secondary-button"
+            id="addSubjectButton"
+            type="button"
+          >
+            + Add Subject
           </button>
-        </td>
-      </tr>
-    </template>
 
-    <script src="script.js"></script>
-  </body>
+          <div class="result-box result-box--main">
+
+            <span>SGPA</span>
+
+            <strong id="sgpaValue">0.00</strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- GRADING PANEL -->
+      <aside
+        class="grading-panel"
+        aria-labelledby="grading-title"
+      >
+
+        <div class="panel-header panel-header--compact">
+
+          <div>
+
+            <p class="eyebrow">Editable</p>
+
+            <h2 id="grading-title">
+              BHU Grade Points
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="grade-grid"
+          id="gradeGrid"
+        ></div>
+
+
+        <p class="note">
+          Change a grade point if your department follows a different
+          mapping. The calculator updates every row that uses that grade.
+        </p>
+
+      </aside>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+      <p>
+        Made for BHU students by a BHU Computer Science student.
+      </p>
+
+      <span>
+        Calculate your semester SGPA quickly by editing subjects,
+        credits, and grades.
+      </span>
+
+    </footer>
+
+  </main>
+
+
+  <!-- SUBJECT ROW TEMPLATE -->
+  <template id="subjectRowTemplate">
+
+    <tr>
+
+      <td
+        class="row-index"
+        data-label="SNo"
+      ></td>
+
+      <td data-label="Subject">
+
+        <input
+          class="subject-input"
+          type="text"
+          autocomplete="off"
+          aria-label="Subject name"
+        >
+
+      </td>
+
+
+      <td data-label="Credit">
+
+        <input
+          class="credit-input"
+          type="text"
+          inputmode="decimal"
+          autocomplete="off"
+          aria-label="Credits"
+        >
+
+      </td>
+
+
+      <td data-label="Grade">
+
+        <div class="grade-select"></div>
+
+      </td>
+
+
+      <td data-label="Remove">
+
+        <button
+          class="remove-button"
+          type="button"
+          aria-label="Remove subject"
+        >
+          <span aria-hidden="true"></span>
+        </button>
+
+      </td>
+
+    </tr>
+
+  </template>
+
+
+  <script src="script.js"></script>
+
+</body>
 </html>
